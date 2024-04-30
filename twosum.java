@@ -1,6 +1,10 @@
 // https://leetcode.com/problems/two-sum/
 // 4 / 30 / 2024 - 2:12 am
 // sol - hashmap to hold values for access during its and prevent o(n^2) run time
+// easy
+// run-time -> 97.66%
+// memory -> 15.00%
+
 
 // hashmap api -> containsKey, get
 // arr api -> length
