@@ -1,8 +1,10 @@
+
+
 import java.util.*;
 
 /*
-
-class Solution {
+First Attempt....
+class Solution { 
     public String mergeAlternately(String word1, String word2) {
 
         if (word1.isEmpty()) return word2;
@@ -39,6 +41,7 @@ class Solution {
 }
 */
 
+// Optimized...
 class mergeAlternatively {
     public String mergeAlternately(String word1, String word2) {
         StringBuilder res = new StringBuilder();
