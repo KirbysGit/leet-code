@@ -1,5 +1,9 @@
-
-
+//https://leetcode.com/problems/greatest-common-divisor-of-strings/
+// 05 / 03 / 2024 - 1:41 am
+// sol - gcd of with strings
+// easy
+// run-time -> 100.00%
+// memory -> 89.78%
 
 /*
 
