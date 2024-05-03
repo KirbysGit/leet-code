@@ -1,3 +1,9 @@
+// https://leetcode.com/problems/merge-strings-alternately/
+// 05 / 02 / 2024 - 11:16 pm
+// sol - stringbuilder to append
+// easy
+// run-time -> 85.38%
+// memory -> 68.58%
 
 
 import java.util.*;
