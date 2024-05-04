@@ -1,4 +1,9 @@
-
+// https://leetcode.com/problems/can-place-flowers/
+// 05 / 03 / 2024 - 3:39 pm
+// sol - gcd of with strings
+// easy
+// run-time -> 100.00%
+// memory -> 89.78%
 
 
 // First Attempt....
