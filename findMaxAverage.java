@@ -1,7 +1,9 @@
-
-
-
-
+//https://leetcode.com/problems/maximum-average-subarray-i/
+// 05 / 05 / 2024 - 4:47 am
+// sol - instead of sliding an entire window, just add / minus what is in "view"
+// easy
+// run-time -> 63,97%
+// memory -> 48.30%
 
 class findMaxAverage {
     // First Attempt.... 
