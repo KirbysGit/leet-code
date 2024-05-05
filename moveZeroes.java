@@ -1,17 +1,14 @@
-
+//
 
 // First Attempt.....
-class moveZeroes{
-    public void moveZeroesFirst(int[] nums) {
-        if(nums.length == 1) return;
-        int tmp = 0;
+class moveZeroes {
+    public void moveZeroesFirst(int[] nums) { // RT - 85.96%, MEM - 86.25% // I think this is best solution for Java?
 
-
-        int zeroPtr = 0; // both ptrs set to 0
+        int zeroPtr = 0; 
 
         for (int idx = 0; idx < nums.length; idx++) {
             if (nums[idx] != 0) {
-                tmp = nums[idx];
+                int tmp = nums[idx];
                 nums[idx] = nums[zeroPtr];
                 nums[zeroPtr] = tmp;
                 zeroPtr++;
