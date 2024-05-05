@@ -1,4 +1,9 @@
-//
+// https://leetcode.com/problems/move-zeroes/
+// 05 / 05 / 2024 - 3:41 am
+// sol - two ptrs, one loop
+// easy
+// run-time -> 85.96%
+// memory -> 86.25%
 
 // First Attempt.....
 class moveZeroes {
