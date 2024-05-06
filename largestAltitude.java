@@ -1,3 +1,11 @@
+//https://leetcode.com/problems/find-the-highest-altitude/
+// 05 / 06 / 2024 - 2:37 am
+// sol - iterate through, summing, checking for max.
+// easy
+// run-time -> 100.00%
+// memory -> 65.96%
+
+
 class largestAltitude {
 
     // First Attempt...
