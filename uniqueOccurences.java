@@ -1,9 +1,9 @@
 // https://leetcode.com/problems/unique-number-of-occurrences/
 // 05 / 06 / 2024 - 10:00 pm
-// sol - 
+// sol - is possible without HashMap, but using HashMap take freq, then add to HashSet, and compare.
 // easy
-// run-time -> **
-// memory -> **
+// run-time -> 96.73%
+// memory -> 96.53%
 
 class uniqueOccurences {
 
@@ -63,5 +63,23 @@ class uniqueOccurences {
         }
 
         return true;
+    }
+
+    // Solution found on LeetCode.
+    // Basically, take freq, then add all values from HashMap to Set, if the sizes are the same, meaning
+    // none of the same values, return true.
+    // RT - 96.73%, MEM - 96.53%
+    public boolean uniqueOccurrencesBest(int[] arr) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int x : arr) {
+            freq.put(x, freq.getOrDefault(x, 0) + 1);
+        }
+
+        Set<Integer> s = new HashSet<>();
+        for (int x : freq.values()) {
+            s.add(x);
+        }
+
+        return freq.size() == s.size();
     }
 }
