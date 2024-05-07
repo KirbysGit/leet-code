@@ -7,7 +7,7 @@
 
 
 class findDifference {
-    // First Attempt....
+    // First Attempt.... 05 / 06 / 2024 - 9:13 pm
     // Tried using only Arrays & List, lots of issues, then moved onto a HashMap to 
     // store the frequency of the values. Very slow approach, still trying to find faster.
     // RT - 9.34%, MEM - 89.47%
@@ -48,6 +48,48 @@ class findDifference {
                 if (!(innerList1.contains(nums1[i]))) innerList1.add(nums1[i]);
             }
         }
+
+        myList.add(innerList1);
+        myList.add(innerList2);
+
+        return myList;
+
+    }
+
+    // Second Attempt... 05 / 06 / 2024 - 9:26 pm
+    // Realized I was being stupid by using HashMap for Freq when HashSets do the job I was 
+    // trying to do already. Swapped to Hashset then iterate through to check if exists in other set.
+    // RT - 78.68%, MEM - 48.89%
+    public List<List<Integer>> findDifferenceSecond(int[] nums1, int[] nums2) {
+
+        List<List<Integer>> myList = new ArrayList<>();
+
+        List<Integer> innerList1 = new ArrayList<>();
+        List<Integer> innerList2 = new ArrayList<>();
+
+        HashSet<Integer> freq1 = new HashSet<Integer>();
+        HashSet<Integer> freq2 = new HashSet<Integer>();
+
+        for (int i = 0; i < nums1.length; i++) {
+            freq1.add(nums1[i]);
+        }
+
+        for (int i = 0; i < nums2.length; i++) { 
+            freq2.add(nums2[i]);
+        }
+
+        for (int item : freq1) {
+            if (!(freq2.contains(item))) {
+                innerList1.add(item);
+            }
+        }
+
+        for (int item : freq2) {
+            if (!(freq1.contains(item))) {
+                innerList2.add(item);
+            }
+        }
+        
 
         myList.add(innerList1);
         myList.add(innerList2);
