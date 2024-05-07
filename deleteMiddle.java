@@ -1,3 +1,10 @@
+// https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/
+// 05 / 07 / 2024 - 6:33 pm
+// sol - 
+// medium
+// run-time -> **
+// memory -> **
+
 class deleteMiddle {
     // First Attempt... 05 / 07 / 2024 - 6:33 pm
     // Count Length of List.
