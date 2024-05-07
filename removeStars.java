@@ -1,3 +1,10 @@
+// https://leetcode.com/problems/removing-stars-from-a-string/
+// 05 / 06 / 2024 - 10:38 pm
+// sol - 
+// medium
+// run-time -> *
+// memory -> *
+
 class removeStars {
 
     // First Attempt... 05 / 06 / 2024 - 10:38 pm
