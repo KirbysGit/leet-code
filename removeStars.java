@@ -2,8 +2,8 @@
 // 05 / 06 / 2024 - 10:38 pm
 // sol - 
 // medium
-// run-time -> *
-// memory -> *
+// run-time -> 86.83%
+// memory -> 57.81%
 
 class removeStars {
 
@@ -36,6 +36,30 @@ class removeStars {
 
         sb.reverse();
 
+        return sb.toString();
+    }
+
+    // Second Attempt... 05 / 06 / 2024 - 10:51 pm
+    // Only Change is using a Deque instead so I can poll the Last value instead.
+    // RT - 86.83%, MEM - 57.81%
+    public String removeStars(String s) {
+        
+        char [] list = s.toCharArray();
+        Deque<Character> myDeck = new ArrayDeque<>();
+
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] != '*') {
+                myDeck.push(list[i]);
+            } else {
+                myDeck.pop();
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        while (!(myDeck.isEmpty())) {
+            sb.append(myDeck.pollLast());
+        }
         return sb.toString();
     }
 }
