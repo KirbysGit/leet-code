@@ -1,6 +1,9 @@
-
-
-
+// https://leetcode.com/problems/reverse-linked-list/
+// 05 / 07 / 2024 - 2:36 pm
+// sol - work backwards with an empty node.
+// easy
+// run-time -> 100.00%
+// memory -> 92.18%
 
 class reverseList {
 
