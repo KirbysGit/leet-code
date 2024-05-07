@@ -51,7 +51,6 @@ class deleteMiddle {
     // However because of all the if statements the code is very slow.
     // Trying to work around that now.
     // RT - 6.00%, MEM - 5.05%
-
     public ListNode deleteMiddleSecond(ListNode head) {
         if (head == null || head.next == null) return null;
 
@@ -80,7 +79,31 @@ class deleteMiddle {
         return head;
     }
 
+    // Third Attempt... 05 / 07 / 2024 - 7:12 pm
+    // Basically the same as the previous approach except less repeated checks.
+    // Added If statement after to basically handle the even vs odd cases.
+    // RT - 99.82% , MEM - 32.06%
+    public ListNode deleteMiddleThird(ListNode head) {
+        if (head == null || head.next == null) return null;
 
+        ListNode fast = head;
+        ListNode slow = head;
+        ListNode prev = head;
+        
+        while (fast.next != null && fast.next.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        if (fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+        }
 
-    
+        prev.next = slow.next;
+        slow.next = null;
+
+        return head;
+    }
 }
