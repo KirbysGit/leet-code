@@ -44,4 +44,43 @@ class deleteMiddle {
 
         return head;
     }
+
+    // Second Attempt... 05 / 07 / 2024 - 6:59 pm
+    // One of the LeetCode Hints gave out that you can use a fast and slow ptr.
+    // Trying to use this I implemented the approach below.
+    // However because of all the if statements the code is very slow.
+    // Trying to work around that now.
+    // RT - 6.00%, MEM - 5.05%
+
+    public ListNode deleteMiddleSecond(ListNode head) {
+        if (head == null || head.next == null) return null;
+
+        ListNode fast = head;
+        ListNode slow = head;
+        ListNode prev = head;
+        
+        while (true) {
+            System.out.println("Here!");
+            if (fast.next == null) break;
+            if (fast.next.next == null) {
+                if (fast.next != null) {
+                    prev = slow;
+                    slow = slow.next;
+                    break;
+                }
+            }
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        prev.next = slow.next;
+        slow.next = null;
+
+        return head;
+    }
+
+
+
+    
 }
