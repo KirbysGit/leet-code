@@ -1,5 +1,9 @@
-
-
+// https://leetcode.com/problems/unique-number-of-occurrences/
+// 05 / 06 / 2024 - 10:00 pm
+// sol - 
+// easy
+// run-time -> **
+// memory -> **
 
 class uniqueOccurences {
 
