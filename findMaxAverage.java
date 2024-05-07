@@ -1,4 +1,4 @@
-//https://leetcode.com/problems/maximum-average-subarray-i/
+// https://leetcode.com/problems/maximum-average-subarray-i/
 // 05 / 05 / 2024 - 4:47 am
 // sol - instead of sliding an entire window, just add / minus what is in "view"
 // easy
