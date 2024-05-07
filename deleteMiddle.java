@@ -1,9 +1,9 @@
 // https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/
 // 05 / 07 / 2024 - 6:33 pm
-// sol - 
+// sol - fast and slow ptr
 // medium
-// run-time -> **
-// memory -> **
+// best run-time -> 99.82%
+// best memory -> 32.06%
 
 class deleteMiddle {
     // First Attempt... 05 / 07 / 2024 - 6:33 pm
