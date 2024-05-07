@@ -1,3 +1,11 @@
+//https://leetcode.com/problems/find-the-difference-of-two-arrays/
+// 05 / 06 / 2024 - 9:13 pm
+// sol - instead of sliding an entire window, just add / minus what is in "view"
+// easy
+// run-time -> **
+// memory -> **
+
+
 class findDifference {
     // First Attempt....
     // Tried using only Arrays & List, lots of issues, then moved onto a HashMap to 
