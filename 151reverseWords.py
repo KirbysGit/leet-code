@@ -48,6 +48,15 @@
 
 
         class fastAndSimple:
+
+            # Runtime -> 0ms - 100.00%
+            # Memory -> 17.73 MB - 91.64% # this is bs, keeps changing
+
+            # didn't know about .split(), but basically does this entire problem for us.    
+            # then we just reverse it, and join it back with spaces
+
+            # can be simplified to one line -> return " ".join(s.split()[::-1])
+
             def reverseWords(self, s: str) -> str:
                 s = s.strip()
 

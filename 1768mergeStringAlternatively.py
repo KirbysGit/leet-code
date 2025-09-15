@@ -1,7 +1,6 @@
 # https://leetcode.com/problems/merge-strings-alternately/
 # easy
 
-
 class firstAttempt:
     # 09 / 03 / 2025 - 2:40pm
 
