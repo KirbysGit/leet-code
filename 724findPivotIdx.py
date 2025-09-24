@@ -15,7 +15,7 @@ class firstAttempt:
     # are equal, if so return the index, if not add the current value to leftSum and continue
     # if we reach the end, then just return -1
 
-    # got it really fast. I'M THE GOAT!!!!!!
+    # gsot it really fast. I'M THE GOAT!!!!!!
 
     def pivotIndex(self, nums: List[int]) -> int:
         
