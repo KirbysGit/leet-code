@@ -30,3 +30,22 @@ class firstAttempt:
                 break
 
         return False
+
+class correct:
+
+    # 11 / 27 / 2025 - 2:51 am
+
+    # alright dude it pisses me off looking at this, considering i came back from
+    # work, its currently 2:51 am. the answer is always so simple but i tend to overlook
+    # it.
+
+    def canJump(self, nums: List[int]) -> bool:
+
+        maxReach = 0
+
+        for i in range(0, len(nums)):
+            if i > maxReach:
+                return False
+            maxReach = max(maxReach, i + nums[i])
+        
+        return True
