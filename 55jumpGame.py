@@ -9,6 +9,8 @@ class firstAttempt:
 
     # boutta go to work and come back to finish this.
 
+    # single commit, i can't work on it but don't want to ruin streak. just took notes today.
+
     def canJump(self, nums: List[int]) -> bool:
         
         idx = 0
