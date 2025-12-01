@@ -36,3 +36,25 @@ class firstAttempt:
             max_profit_with_stock = max(max_profit_with_stock, max_profit_without_stock - price)     # buy
 
         return max_profit_without_stock
+
+
+class fasterAndSimpler:
+
+    # 11 / 25 / 2025 - 2:38 pm
+
+    # Runtime -> 0 ms - 100.00%
+
+    # way faster, i didn't even think about it this way, idk why but you don't
+    # really need a dp approach for this, literally just like, if you can buy
+    # and sell at a higher price, then you add the difference to the profit.
+
+    def maxProfit(self, prices: List[int]) -> int:
+
+        profit = 0
+        
+        for i in range(len(prices) - 1):
+            if prices[i + 1] > prices[i]:
+                profit += prices[i + 1] - prices[i]
+        
+        return profit
+
