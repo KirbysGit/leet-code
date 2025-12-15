@@ -61,3 +61,29 @@
                 s = s.strip()
 
                 return " ".join(s[::-1])
+
+        class with150interview:
+
+            # Runtime -> 0 ms - 100.00%
+            # Memory -> 18.04 MB - 23.25%
+
+            def reverseWords(self, s: str) -> str:
+
+                s = s.split()
+
+                front = 0
+                back = len(s) - 1
+
+                while front < back:
+                    tmp = s[front]
+                    s[front] = s[back]
+                    s[back] = tmp
+
+                    front +=1 
+                    back -= 1
+
+                output = " ".join(s)
+
+                return output
+
+        
