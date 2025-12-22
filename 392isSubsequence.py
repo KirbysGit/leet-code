@@ -72,3 +72,26 @@ class originalIdeaWorking:
             return True
         else:
             return False
+
+class imBack:
+
+    # Runtime -> 0ms - 100.00%
+    # Memory -> 17.22 MB - 99.05%
+
+    # same shit as before just wanted to note it down. didn't realize how dumb i wrote
+    # the other one. 
+    
+    def isSubsequence(self, s: str, t: str) -> bool:
+        ptr1 = 0
+        ptr2 = 0
+    
+        while ptr2 < len(t) and ptr1 < len(s):
+            if s[ptr1] == t[ptr2]:
+                ptr1 += 1
+        
+            ptr2 += 1
+        
+        if ptr1 == len(s):
+            return True
+
+        return False
