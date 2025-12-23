@@ -42,3 +42,34 @@ class firstAttempt:
                 i+=1
 
         return maxArea
+
+class goingThrough150:
+
+    # 12 / 23 / 2025 - 2:42 pm
+
+    # Runtime -> 60 ms - 94.51%
+    # Memory -> 27.75 MB - 95.43%
+
+    # this was me coming back through the 150 review questions. dude im getting better at this!
+    # i remembered doing it, but couldn't remember how to do it. had to write it out.
+
+    # set it up like this, took me like 10 minutes still, but i did it!
+
+    def maxArea(self, height: List[int]) -> int:
+        
+        front = 0
+        back = len(height) - 1
+        area = 0
+        most = 0
+
+        while front < back:
+            area = min(height[front], height[back]) * (back - front)
+            if area > most:
+                most = area
+
+            if height[front] <= height[back]:
+                front += 1
+            else:
+                back -= 1
+        
+        return most
