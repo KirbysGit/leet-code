@@ -39,3 +39,9 @@ class firstAttempt:
             walk = front + 1
         
         return final
+
+class secondAttempt:
+
+    # its christmas!!! i work in like less than an hour so i can't really attempt the code,
+    # but i'm thinking like a greedy approach to it so we can sort the array and then iterate
+    # through the array using three numbers that add to 0 because order doesn't matter.
