@@ -156,4 +156,63 @@ class thirdAttempt:
 
         return output
 
-        
+class fourthAttempt:
+
+    # alright i feel stupid as fuck stilL!!!!
+
+    # 12 / 28 / 2025
+
+    # just put like an hour and a half into this. just trying to understand how i can do this without O(n^2)
+
+    # i used the hints and still don't understand, one of them mentioned a hash map which i kind of want to try.
+
+    # but im really bad with dictionaries so....
+
+    # might try again later tn because its pissing me off.
+
+    # probably at like 8 hours spent on this problem.
+
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+
+        n = len(nums)
+
+        if n == 3:
+            if sum(nums) == 0:
+                return [nums]
+            else:
+                return []
+
+        nums.sort()
+        output = []
+        front = 0
+        back = n - 1
+
+        for idx, val in enumerate(nums):
+            while front < back:
+                if front == idx:
+                    front += 1
+                    continue
+                elif back == idx:
+                    back -= 1
+                    continue
+                
+                if nums[front] > 0 and nums[back] > 0 and val > 0:
+                    break
+                
+                if nums[front] < 0 and nums[back] < 0 and val < 0:
+                    break
+
+                if nums[front] + nums[back] + val == 0:
+                    toAdd = sorted([nums[front], nums[back], val])
+                    if toAdd not in output:
+                        output.append(toAdd)
+                    front += 1
+                elif nums[front] + nums[back] + val < 0:
+                    front += 1
+                else:
+                    back -= 1
+
+            front = 0
+            back = n - 1 
+
+        return output
