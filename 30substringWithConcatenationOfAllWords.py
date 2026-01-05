@@ -53,3 +53,51 @@ class firstAttempt:
         return final
 
         # coming back fix that error then we'll probably run into something else.
+
+class secondAttempt:
+
+    # 01 / 05 / 2026 - 3:07 pm
+
+    # still working on it. 
+
+    # i got some test cases working. currently 76 / 182 test cases with my approach.
+
+    # submitted and realized i don't really consider duplicate words which is a big issue because it will just
+    # attach the word to the seen array and just kind of forget about it.
+
+    # i consulted chatGPT because i want to make a bit more progress with how i go through these problems,
+    # if i just struggled through this it might take me like a week versus like 2 days and some assistance.
+
+    # the approach i got was to use a dictionary to count the frequency of each word in the words list.
+    # then we iterate through the string s in windows of size len(words) * len(words[0]), and for each window.
+    # but i'm not going to do that right now, when i come back i will.
+
+    # pretty similar approach to yesterday but i just updated it to work.
+
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        
+        front, end = 0, 0
+        subStr = len(words[0])
+        window = len(words[0]) * len(words)
+        output = []
+
+        while end < len(s):
+            seen = []
+
+            start = front
+            end = start + window
+
+            while start < end:
+                sub = s[start:(start + subStr)]
+                if sub in words and sub not in seen:
+                    seen.append(sub)
+                    start += subStr
+                else:
+                    break
+            
+            if len(seen) == len(words):
+                output.append(front)
+            
+            front += subStr
+
+        return output
