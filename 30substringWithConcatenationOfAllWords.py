@@ -147,3 +147,82 @@ class thirdAttempt:
             count += 1
 
         return res
+
+class workingAttempt:
+
+    # 1 / 6 / 2026 - 1:51
+
+    # had to use a lot of chatgpt, i kept like slowly moving through, getting more and more
+    # test cases but it wasn't working so i decided to consult my buddy GPT! i wasn't really
+    # understanding how to handle the potential offsets of the words. solutions for most of my
+    # issues were pretty simple but they were all kind of layed and i didn't know how to 
+    # set up the code to like interweave them. but i'll note through the solution rather than 
+    # doing a really long explanation.
+
+    # a big thing i didn't understand at the end of this was that we don't have to do a check
+    # for the dictionaries to be the same, rather we can just cover every case that would let a wrong
+    # word through and just slide the window if so.
+
+    # so at the end when we just check the count then add the word. we can do this because of the
+    # initial check if inp word not in list, handle overcounts of the words that exists by sliding, 
+    # and handles the exact count of words.
+
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+
+        # -- 1. create basically a counter dict for words we have.
+        subStrings = {}
+        for word in words:
+            subStrings[word] = subStrings.get(word, 0) + 1
+
+        # -- 2. set up our constants.
+        front = 0                       # start of the window.
+        count = 0                       # count of words in current dict.
+        noMore = len(words)             # max amount of words in window.
+        wordLength = len(words[0])      # length of each word.
+        res = []                        # final result array.
+        current = {}                    # dict for current window counts.
+
+        # -- 3. per offset (like if word len = 3, starts are at 0, 1, 2)
+        for val in range(0, wordLength):
+            
+            # -- 4. reset window.
+            front = val
+            current = {}
+            count = 0
+
+            # -- 5. sliding window mechanism.
+            for idx in range(val, len(s) - wordLength + 1, wordLength):
+                
+                # -- 6. grab next word in our sub window.
+                inp = s[idx:idx+wordLength]
+
+                # -- 7. if inp word not in our actually word list. reset and move on. else, add it to dict.
+                if inp not in subStrings:
+                    current.clear()
+                    count = 0
+                    front = idx + wordLength
+                    continue
+
+                current[inp] = current.get(inp, 0) + 1
+                count += 1
+
+                # -- 8. if word count per cur word is greater than in the correct dict. remove words from left
+                #       until value is less than.
+                while current[inp] > subStrings[inp]:
+                    out = s[front:front+wordLength]
+                    current[out] -= 1
+                    front += wordLength
+                    count -= 1
+
+                # -- 9. if our count reaches full window. add the front idx to arr. then slide window over again.
+                if count == noMore:
+                    res.append(front)
+
+                    out = s[front:front+wordLength]
+                    current[out] -= 1
+                    if current[out] == 0:
+                        del current[out]
+                    front += wordLength
+                    count -= 1
+
+        return res
