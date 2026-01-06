@@ -101,3 +101,49 @@ class secondAttempt:
             front += subStr
 
         return output
+
+
+class thirdAttempt:
+
+    # shits pissing me off.
+
+    # 1 / 05 / 2026 - 8:21 pm
+
+    # trying to do the sliding window with the counter but theres so many small things that 
+    # are just hurting my brain. like so many cases i need to consider. 
+
+    # coming back to this tmrw. trying to figure out ordering and counter. 
+
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        subStrings = {}
+        for word in words:
+            subStrings[word] = subStrings.setdefault(word, 0) + 1
+
+        wordLength = len(words[0])
+
+        front = 0
+        count = 0
+        noMore = len(words)
+
+        res = []
+        current = {}
+
+        for idx in range(0, len(s), wordLength):
+
+            if count < noMore:
+                inp = s[idx:(idx + wordLength)]
+                current[inp] = current.setdefault(inp, 0) + 1
+                count += 1
+
+            if count == noMore:
+                if subStrings == current:
+                    res.append(front)
+
+            if count > noMore:
+                out = s[front:(front + wordLength)]
+                current[out] = current.get(out, 0) - 1
+                front += wordLength
+
+            count += 1
+
+        return res
