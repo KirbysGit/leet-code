@@ -50,3 +50,59 @@ class firstAttempt:
                 x -= 1
             
         return spiral
+
+class secondAttempt:
+
+    # 1 / 11 / 2025 - 9:17 pm
+
+    # adjusted one line. @ 9 / 26 solutions. 
+
+    # took a break to eat, watched an episode of fire force, came back, and still struggling with
+    #  different approach of the same manner. i just think its the way im organizing it that
+    # has a lot of issues.
+
+    # coming back tmrw i got it!
+
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        
+        x = 0
+        y = 0
+
+        top = 1
+        bottom = len(matrix) - 1
+        left = 0
+        right = len(matrix[0]) - 1
+        direction = 1
+
+        rad = len(matrix) * len(matrix[0])
+
+        spiral = []
+
+        while len(spiral) < rad:
+            spiral.append(matrix[y][x])
+
+            if x == right:
+                while y < bottom:
+                    y += 1
+                    spiral.append(matrix[y][x])
+                right -= 1
+                bottom -= 1
+                direction = -1
+            if x == left and direction == -1:
+                while y > top:
+                    y -= 1
+                    spiral.append(matrix[y][x])
+                left += 1
+                top += 1
+                direction = 1
+
+            if direction > 0:
+                x += 1
+            else:
+                x -= 1
+            
+        return spiral
+    
+
+
+    
