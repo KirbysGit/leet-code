@@ -104,5 +104,56 @@ class secondAttempt:
         return spiral
     
 
+class correct:
 
-    
+    # 1 / 12 / 2025 - 7:39 pm
+
+    # had to use gpt for this one, it was a small hint, i literally was explaining things that i was like,
+    # its gotta be too slow to do. and then it goes... Nope! thats how you do it!
+
+    # idk why i though the 4 for loops inside a while loop was not quick enough, but i guess i was just
+    # not thinking about it the right way.
+
+    # Runtime -> 0 ms - 100.00%
+    # Memory -> 19.38 MB - 8.24%
+
+    # basically, same thing with the 4 pointers, except we just use 4 for loops with minimal conditions
+    # to move up down left and right through the matrix.
+
+    # look at the code and it makes more sense to how we do it (like how we crawl backwards too).
+
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        
+        # initialize pointers.
+        top = 0
+        left = 0
+        right = len(matrix[0]) - 1
+        bottom = len(matrix) - 1
+
+        # initialize list for output.
+        spiral = []
+
+        while top <= bottom and left <= right:
+            # left to right pass.
+            for col in range(left, right + 1):
+                spiral.append(matrix[top][col])
+            top += 1
+
+            # top to bottom pass.
+            for row in range(top, bottom + 1):
+                spiral.append(matrix[row][right])
+            right -= 1
+
+            if top <= bottom:
+                # right to left pass.
+                for col in range(right, left - 1, -1):
+                    spiral.append(matrix[bottom][col])
+                bottom -= 1
+
+            if left <= right:
+                # bottom to top pass.
+                for row in range(bottom, top - 1, -1):
+                    spiral.append(matrix[row][left])
+                left += 1
+
+        return spiral
