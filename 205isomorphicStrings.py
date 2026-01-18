@@ -30,3 +30,58 @@ class firstAttempt:
                 return False
         
         return True
+
+class secondAttempt:
+
+    # 1 / 17 / 2026 - 10:12 pm
+
+    # alright i know it sounds bs.
+
+    # but im super tired right now and i was trying to wrap my head
+    # around this problem. i wanted to do a 2d sort of connection just checking
+    # if its in it, or if not then just add it both ways.
+
+    # my brain wasn't helping me out. 
+
+    # consulted the gpt from this attempt below on how i could do it 
+    # in a 2D way. thats how i got to the next solution.
+
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        
+        connect = {}
+
+        for idx in range(len(s)):
+            if connect.get(s[idx], '.') == '.':
+                connect[s[idx]] = t[idx]
+            else:
+                if connect[s[idx]] != t[idx]:
+                    return False
+        
+        return True
+
+class correctSolution:
+
+    # 1 / 17 / 2026 - 10:13 pm
+
+    # this one basically just does what i did in the last one
+    # gets rid of the default check with the '.' and just checks
+    # membership, and then adds it both ways across two dicts.
+
+    def isIsomorphic(self, s: str, t: str) -> bool:
+
+        s_to_t = {}
+        t_to_s = {}
+
+        for idx in range(len(s)):
+            ct = t[idx]
+            cs = s[idx]
+
+            if cs in s_to_t and s_to_t[cs] != ct:
+                return False
+            if ct in t_to_s and t_to_s[ct] != cs:
+                return False
+
+            s_to_t[cs] = ct
+            t_to_s[ct] = cs
+
+        return True
