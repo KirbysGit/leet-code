@@ -31,7 +31,7 @@ class myAttempt:
 
         front = []
         back = []
-        
+
         frontBack = 1
 
         for idx in range(0, len(A)):
