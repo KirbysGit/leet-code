@@ -37,3 +37,34 @@ class firstAttempt:
                 arrows += 1
 
         return arrows + 1
+
+class secondAttmept:
+
+    # 01 / 30 / 2026 - 4:01 pm
+
+    # im in the process of going through this again with the Top Interview 150 list.
+    # but im forgetting how to do it.
+
+    # im not thinking about it clearly and i don't want to cheat to re-understand it.
+
+    # i'll give myself time to think.
+
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+
+        points.sort(key=lambda x:x[1])
+
+        arrows = 0 
+
+        start = points[0][0]
+        end = points[0][1]
+
+        print(points)
+
+        for balloon in points:
+            if end < balloon[0]:
+                end = balloon[1]
+                arrows += 1
+
+            start = balloon[0]
+
+        return arrows
