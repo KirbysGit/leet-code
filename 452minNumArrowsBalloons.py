@@ -68,3 +68,69 @@ class secondAttmept:
             start = balloon[0]
 
         return arrows
+
+class thirdAttempt:
+
+    # post gasparillia. 
+
+    # im the goat!!!
+
+    # 02 / 01 / 2026 - 7:38 pm
+
+    # Runtime -> 86 ms - 52.14%
+    # Memory -> 53.52 MB - 29.17%
+
+    # before dippping i really couldn't understand where i was going wrong. and honestly
+    # i still don't fully understand what i did, i was like okay so if we are sorting
+    # by the back value, then we only really need to check if the end of of the previous
+    # balloon is before the start of the current balloon, then we can just increment the
+    # back value and decrement the arrows based on the overlap.
+
+    # idek what i just typed, shit took me like 10 minutes to get this code right.
+
+    # just like if end of previous is overlapping with start of current, decrement arrows
+    # else, move the "previous" value up.
+
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+
+        points.sort(key=lambda x:x[1])
+
+        arrows = len(points)
+
+        overlap = points[0][1]
+
+        for idx in range(0, len(points)):
+            if points[idx][0] <= overlap:
+                arrows -= 1
+            else:
+                overlap = points[idx][1]
+
+        return arrows + 1
+
+class goatStatus:
+
+    # 02 / 01 / 2026 - 7:42 pm
+
+    # Runtime -> 59 ms - 93.56%
+    # Memory -> 53.48 MB - 41.89%
+
+    # i looked at my other attempt, and was like okay if we instead increment the arrows
+    # based on a lack of overlap, we don't need a separate else statement to handle
+    # moving the back value up.
+
+    # also, i forgot because im using an idx now i don't have to do the first index again.
+
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+
+        points.sort(key=lambda x:x[1])
+
+        arrows = 0
+
+        overlap = points[0][1]
+
+        for idx in range(1, len(points)):
+            if points[idx][0] > overlap:
+                arrows += 1
+                overlap = points[idx][1]
+
+        return arrows + 1
