@@ -67,3 +67,77 @@ class secondAttempt:
     # was drinking at superbowl party. wanna finish this shit, but need a git commit rn. 
     
     # working on it rn.
+
+     # 02 / 09 / 2026 - 10:16 pm
+
+    # we're back, almost 24 hours later, still working through this. shits ass.
+    
+    # this is where im at.
+
+    # 11 / 49 test cases.
+
+    # right now im not handling the negative signs like at all. and its just
+    # so messy. like im just like symptom handling.
+
+    # idea right now really is just to iterate through, recurse on parenthesis,
+    # then handle operators and numbers as i would normally.
+
+    operators = ["+", "-", "*", "/"]
+    cur = 0
+
+    def calculate(self, s: str) -> int:
+        print("Cur Str : ", s)
+        nums = []
+        ops = []
+
+        idx = 0
+        n = len(s)
+
+        while idx < n:
+            if s[idx] == ")":
+                self.cur = idx + 1
+                break
+                
+            if s[idx] == " ":
+                idx += 1
+                continue
+
+            if s[idx] == "(":
+                add = self.calculate(s[idx + 1 : ])
+                idx += (self.cur + 1)
+                nums.append(add)
+                continue
+
+            if len(nums) == 2:
+                while ops:
+                    x = nums.pop()
+                    y = nums.pop()
+                    op = ops.pop()
+                    nums.append(self.solve(x, y, op))
+            
+            if s[idx] in self.operators:
+                ops.append(s[idx])
+            else:
+                nums.append(int(s[idx]))
+
+            idx += 1
+
+        
+        while ops:
+            x = nums.pop()
+            y = nums.pop()
+            op = ops.pop()
+            nums.append(self.solve(x, y, op))
+
+        return int("".join(map(str, nums)))
+    
+
+    def solve(self, x, y, op):
+        if op == '+':
+            return y + x
+        elif op == '-':
+            return y - x
+        elif op == '*':
+            return y * x
+        else:
+            return y / x
