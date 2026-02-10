@@ -141,3 +141,83 @@ class secondAttempt:
             return y * x
         else:
             return y / x
+
+class thirdAttempt:
+
+    # 02 / 10 / 2026 - 12:06 pm
+
+    # FUCKKKKKK!!!! 
+
+    # i didn't think about two digit numbers. like the case "1 - 11".
+
+    # i handle it like 1 - 1 , 1, which doesn't work.
+
+    # this is where im at, still just handling symptoms.
+
+    def calculate(self, s: str) -> int:
+        print("Cur Str : ", s)
+        nums = []
+        ops = []
+
+        idx = 0
+        n = len(s)
+
+        while idx < n:
+            if s[idx] == ")":
+                self.cur = idx + 1
+                break
+                
+            if s[idx] == " ":
+                idx += 1
+                continue
+
+            if s[idx] == "(":
+                add = self.calculate(s[idx + 1 : ])
+                idx += (self.cur + 1)
+                nums.append(add)
+                print(add)
+                continue
+
+            if len(nums) == 2:
+                while ops:
+                    x = nums.pop()
+                    y = nums.pop()
+                    op = ops.pop()
+                    nums.append(self.solve(x, y, op))
+            
+            if s[idx] in self.operators:
+                ops.append(s[idx])
+            else:
+                toAdd = int(s[idx])
+                if ops and not nums:
+                    ops.pop()
+                    toAdd *= -1
+                nums.append(toAdd)
+
+            print(nums)
+
+            idx += 1
+
+        if ops:
+            if len(nums) == 2:
+                x = nums.pop()
+                y = nums.pop()
+                op = ops.pop()
+                nums.append(self.solve(x, y, op))
+            else:
+                ops.pop()
+                nums.append(nums.pop() * -1)
+
+        return int("".join(map(str, nums)))
+    
+
+    def solve(self, x, y, op):
+        if op == '+':
+            return y + x
+        elif op == '-':
+            return y - x
+        elif op == '*':
+            return y * x
+        else:
+            return y / x
+    
