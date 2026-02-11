@@ -285,3 +285,94 @@ class fourthAttempt:
             return y * x
         else:
             return y / x
+        
+class fifthAttempt:
+
+    # bro 🤣🤣🤣🤣🤣
+
+    # this is so ass!!! i just put like an hour into this off where i was. 
+    # i even used chatgpt for a second on handling PEMDAS. but i got to
+    # a memory error with ...
+    
+    # 48 / 49 TEST CASES PASSED!!! 
+
+    # i mean to be fair i've just been like specific as hell with my handling
+    # like my brain starts smoking when i try to think about like a general
+    # solution, like something that can handle multiple issues.
+
+    # i'll probably use chatgpt to help me out because the memory error means
+    # i'm just not popping quick enough and the array is like exponentially growing.
+
+    # here is where i am at :
+
+    operators = ["+", "-", "*", "/"]
+    cur = 0
+
+    precedence = {
+        '+': 1, '-': 1, '*': 2, '/': 2
+    }
+
+    def calculate(self, s: str) -> int:
+        nums = []
+        ops = []
+
+        idx = 0
+        n = len(s)
+
+        while idx < n:
+            if s[idx] == ")":
+                self.cur = idx + 1
+                break
+                
+            if s[idx] == " ":
+                idx += 1
+                continue
+
+            if s[idx] == "(":
+                add = self.calculate(s[idx + 1 : ])
+                idx += (self.cur + 1)
+                nums.append(add)
+                continue
+            
+            if s[idx] in self.operators:
+                while ops and len(nums) >= 2 and self.precedence[ops[-1]] >= self.precedence[s[idx]]:
+                    nums.append(self.solve(nums, ops))
+                if ops and self.precedence[ops[-1]] >= self.precedence[s[idx]] and len(nums) == 1:
+                    ops.pop()
+                    x = nums.pop()
+                    nums.append(x * -1)
+                ops.append(s[idx])
+            else:
+                toAdd = int(s[idx])
+                if ops and not nums:
+                    ops.pop()
+                    toAdd *= -1
+                if nums and s[idx - 1].isdigit():
+                    tens = nums.pop()
+                    if tens > 0:
+                        toAdd = (tens * 10) + toAdd
+                    else:
+                        toAdd = (tens * 10) - toAdd
+                
+                nums.append(toAdd)
+
+            idx += 1
+
+        if ops:
+            if len(nums) == 2:
+                nums.append(self.solve(nums, ops))
+            else:
+                nums.append(nums.pop() * -1)
+
+        return int(nums[0])
+    
+
+    def solve(self, nums, ops):
+        x = nums.pop()
+        y = nums.pop()
+        op = ops.pop()
+        if op == '+':
+            return y + x
+        else:
+            return y - x
+    
