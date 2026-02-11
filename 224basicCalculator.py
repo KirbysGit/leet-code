@@ -221,3 +221,67 @@ class thirdAttempt:
         else:
             return y / x
     
+class fourthAttempt:
+
+    # 02 / 10 / 2026 - 7:09 pm 
+
+    # 32 / 49 test cases.
+
+    # running into same issue. restarted completely and running into issue with 
+    # not handling double digits numbers. trying to find a work around but
+    # i haven't gotten anything yet.
+
+    operators = ['+', '-', '*', '/']
+    steps = 0
+
+    def calculate(self, s: str) -> int:
+        
+        if isinstance(s, str):
+            expression = s.replace(" ", "")
+
+        idx = 0
+        stack = []
+
+        while idx < len(expression):
+            value = expression[idx]
+
+            if value == '(':
+                stack.append(self.calculate(expression[idx + 1 : ]))
+                idx += self.steps + 1
+            elif value == ')':
+                self.steps = idx
+                break
+            else:
+                if value in self.operators:
+                    stack.append(value)
+                else:
+                    num = int(value)
+                    if stack and isinstance(stack[-1], int):
+                        tens = stack.pop()
+                        num = (tens * 10) + num
+                    if len(stack) == 1 and stack[0] == '-':
+                        stack.pop()
+                        num = num * -1 
+                    stack.append(num)
+
+            if len(stack) == 3:
+                x = int(stack.pop())
+                op = stack.pop()
+                y = int(stack.pop())
+                stack.append(self.solve(x, y, op))
+
+            idx += 1
+
+        if len(stack) > 1:
+            return int(stack[1]) * -1
+        return int(stack[0])
+        
+    def solve(self, x: int, y: int, op: char):
+        if op == '+':
+            return y + x
+        elif op == '-':
+            return y - x
+        elif op == '*':
+            return y * x
+        else:
+            return y / x
