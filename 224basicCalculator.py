@@ -376,3 +376,63 @@ class fifthAttempt:
         else:
             return y - x
     
+class done:
+
+    # 02 / 12 / 2026 - 11:49 am
+
+    # whelp. i lost.
+
+    # i had to use chatgpt. i mean it didn't really give me the answer but it kinda did.
+
+    # i honestly don't think i would've gotten this approach though, i would've never
+    # thought to use the sign as a separate variable.
+
+    # basically the approach is a one pass solution, moving through, 
+
+    # if the value is an open parenthesis, we push the result and sign onto the stack 
+    # and reset for the sake of having a fresh state for the inner expression.
+
+    # if the value is a closed parenthesis, we pop result and sign from stack and add
+    # onto the result to get the final result after that expression.
+
+    # if value is a plus or minus, we add onto result and update sign.
+
+    # else if number just throw that guy onto the stack.
+
+    # its so simple in hindsight but i was too far in with my approach to want to
+    # break away and take a much simpler way.
+
+    def calculate(self, s: str) -> int:
+        result = 0
+        number = 0
+        sign = 1
+        stack = []
+
+        s = s.replace(" ", "")
+
+        for val in s:
+            if val == '(':
+                stack.append(result)
+                stack.append(sign)
+                result = 0
+                sign = 1
+            elif val == ')':
+                result += sign * number
+                number = 0
+                prev_sign = stack.pop()
+                prev_result = stack.pop()
+                result = prev_result + prev_sign * result
+            elif val == '+':
+                result += sign * number
+                number = 0
+                sign = 1
+            elif val == '-':
+                result += sign * number
+                number = 0
+                sign = -1
+            else:
+                number = number * 10 + int(val)
+
+        result += sign * number
+
+        return result
