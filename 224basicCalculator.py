@@ -380,6 +380,9 @@ class done:
 
     # 02 / 12 / 2026 - 11:49 am
 
+    # Runtime -> 35 ms - 91.36%
+    # Memory -> 20.26 - 59.11%
+
     # whelp. i lost.
 
     # i had to use chatgpt. i mean it didn't really give me the answer but it kinda did.
