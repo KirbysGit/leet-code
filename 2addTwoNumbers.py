@@ -46,3 +46,65 @@ class firstAttempt:
                 tmp = tmp.next
 
         return final
+
+class imBack:
+
+    # 02 / 14 / 2026 - 3:38 pm
+
+    # Runtime -> 0 ms - 100.00%
+    # Memory -> 19.25 MB - 64.84%
+
+    # im the goat!!!!
+
+    # looking at the last attempt and looking at this one. i've grown bro!!
+    # i understand it better now, the approach was pretty easy, first attempt
+    # here though i wasn't considering the values adding up over 10, so i needed
+    # to handle that as well as a carry variable to carry the value over.
+
+    # my code is highkey kind of messy, but it works well!
+
+    # i was just like lets check if l1 and l2 exist, if so add them both,
+    # if not just add if either l1 or l2 as we know one of them will exist
+    # based on the set up of the while loop.
+
+    # then deal with if the value goes over 10, then handle the carry value
+    # then update the values to the next in the list, then handle adding
+    # a new node if both next steps are not none or carry > 0.
+
+    # bam!!! im goated!
+
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        
+        head = ListNode()
+        front = head
+        carry = 0
+
+        while l1 or l2 or carry > 0:
+            if l1 is None and l2 is None and carry > 0:
+                head.val = carry
+                break
+
+            if l1 and l2:
+                head.val = l1.val + l2.val + carry
+            elif l1:
+                head.val = l1.val + carry
+            elif l2:
+                head.val = l2.val + carry
+
+            carry = 0
+            
+            if head.val >= 10:
+                carry = 1
+                head.val = head.val % 10
+            
+            if l1 is not None:
+                l1 = l1.next
+            if l2 is not None:
+                l2 = l2.next
+
+            if l1 or l2 or carry > 0:
+                step = ListNode()
+                head.next = step
+                head = head.next
+        
+        return front
