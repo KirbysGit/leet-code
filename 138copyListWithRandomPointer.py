@@ -51,3 +51,4 @@ class correct:
             cur = cur.next
 
         return mapping[head]
+        
