@@ -82,13 +82,15 @@ class workingAttempt:
 
     # very slow.
 
-    # Runtime -> 7 ms - 6.02%
+    # Runtime -> 0 ms - 100.00%
     # Memory -> 20.80 MB - 15.41%
 
     def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        # initial check.
         if k == 1:
             return head
 
+        # initial setup.
         idx = 0
         front = head
         begin = ListNode(0)
