@@ -62,10 +62,59 @@ class holyShit:
                 idx += 1
             if k == idx:
                 start.next = head
+                start = start.next
+
                 xtra = prev
                 if begin.next == None:
                     begin.next = xtra
                 end.next = prev
+                end = copy
+                copy = ListNode(0)
+                idx = 0
+                
+        return begin.next
+
+class workingAttempt:
+
+    # 02 / 26 / 2026 - 10:11 pm
+
+    # got it. took a while to rationalize where its going wrong. but got it.
+
+    # very slow.
+
+    # Runtime -> 7 ms - 6.02%
+    # Memory -> 20.80 MB - 15.41%
+
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if k == 1:
+            return head
+
+        idx = 0
+        front = head
+        begin = ListNode(0)
+        begin.next = None
+        copy = ListNode(0)
+        end = copy
+
+        while head is not None:
+            start = copy
+            while idx < k and head is not None:
+                copy.val = head.val
+                tmp = ListNode(0)
+                prev = copy
+                copy = tmp
+                copy.next = prev
+                head = head.next
+                idx += 1
+            if k == idx:
+                xtra = prev
+                if begin.next == None:
+                    begin.next = xtra
+                else:
+                    end.next = prev
+                end = start
+                start.next = head
+                start = start.next
                 copy = ListNode(0)
                 idx = 0
                 
