@@ -46,3 +46,29 @@ class firstAttempt:
         else:
             return head.next
         
+class fastSlow:
+
+    # 02 / 28 / 2026 - 4:55 pm
+
+    # i guess it can be done with fast and slow pointers. i was looking at the
+    # fastest solution, and i was like i don't get how it could be done, because
+    # the pointer would kind of just overlap? or like you couldn't really get an exact
+    # point of stopping. but i guess it works!
+
+    # this idea is still a little blurry in my head, but what its doing is basically
+    # moving the fast pointer n steps ahead from the slow pointer. so when we start
+    # iterating through and the fast pointer reaches the end of hte list the slow pointer
+    # will be at the node to remove (the nth node from the end), so we just "remove" it
+    # by pointing the prev to the next around the to be deleted node, and return the head!
+
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        fast=head
+        slow=head
+        for _ in range(n):
+            fast=fast.next
+        if not fast: return head.next
+        while fast.next:
+            fast=fast.next
+            slow=slow.next
+        slow.next=slow.next.next
+        return head
