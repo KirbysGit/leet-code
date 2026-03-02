@@ -12,11 +12,11 @@ class firstAttempt:
     # just need to think about it.
 
     # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution:
+    # class ListNode:
+    #     def __init__(self, val=0, next=None):
+    #         self.val = val
+    #         self.next = next
+
     def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
         
         front = head
@@ -45,3 +45,43 @@ class Solution:
         print(before)
 
 
+class working:
+
+    # 03 / 02 / 2026 - 1:31 pm
+
+    # Runtime -> 0 ms - 100.00%
+    # Memory -> 19.32 MB - 66.88%
+
+    # i rearranged the front != None set up from the previous point, where it just skips
+    # if the freq array value is greater than 1. so it only continues the list if the value 
+    # is 1. 
+
+    # i think this can be done without the hash map so i want to try that.
+
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        
+        front = head
+        seen = {}
+
+        while front != None:
+            seen[front.val] = seen.get(front.val, 0) + 1
+            front = front.next
+
+        before = ListNode(0)
+        start = before
+
+        front = head
+
+        while front != None:
+            while front and seen[front.val] != 1:
+                front = front.next
+
+            if front == None:
+                start.next = None
+                break
+            
+            start.next = front
+            start = start.next
+            front = front.next
+    
+        return before.next
