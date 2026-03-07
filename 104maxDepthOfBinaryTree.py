@@ -35,3 +35,20 @@ class firstAttempt:
         right_depth = self.maxDepth(root.right)
 
         return 1 + max(left_depth, right_depth)
+
+
+class comingBack:
+
+    # 03 / 07 / 2026 - 2:00 pm
+
+    # insane i didn't get this on my own. 
+
+    # i mean i did kind of see the answer before i did it again, but i mean with most trees,
+    # you really just need to recurse through one specific function call to walk
+    # through it the way we want.
+
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+
+        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
