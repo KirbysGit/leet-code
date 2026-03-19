@@ -107,3 +107,74 @@ class secondAttempt:
             
         print(self.stack.next.val)
         print(self.cur.val)
+
+
+class thirdAttempt:
+
+    # 03 / 19 / 2026 - 1:50 pm
+
+    # testcases -> 7 / 24 passed.
+
+    # and we're back! 
+
+    # highkey been avoiding this problem because its just so hard, but i literally figured out my main
+    # issue really quick, then i've been dealing with a couple of new ones now that are harder to deal with.
+
+    # coming back one of the main issues was that i wasn't even incrementing the nodes, so like we would
+    # just add and add, and then get rid of based on the "stack" i created, so a couple of fixes helped that out.
+
+    # then i ran into an issue with the key value being 0 which wouldn't pass the if statement, so i just
+    # had to handle that with a -1 and setting up the conditional statement differently.
+
+    # and then now where i am is that when you add a new node that has the same key, so my brain is thinking
+    # like its pretty easy to handle in some cases, but in set ups where the node isn't the last one used,
+    # then we have to iterate through the list to find the node and then move it to the front. updating
+    # the value in the dict is easy, thats just another statement, but i feel like there is a better way
+    # to move the node to the front and ignoring the past node without having to iterate through the list.
+
+    def __init__(self, capacity: int):
+        self.track = {}
+        self.stack = ListNode(-1)                    # original ptr.
+        self.cur = self.stack                       # cur is moving ptr.
+        self.nodes = 0
+        self.cap = capacity
+
+    def get(self, key: int) -> int:
+        if key in self.track:                     # if key exists in track dict.
+            val = self.track.get(key)               # get val at key.
+            self.cur.next = ListNode(key)           # move value forward to node we just used.
+            self.cur = self.cur.next                # move cur to that new value.
+            if self.nodes == self.cap:              # if we're at cap, move stack forward.
+                self.stack = self.stack.next
+            return val                              # return val we got.
+        else:
+            return -1
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.track:
+            self.track.setdefault(key, value)
+
+        if self.nodes == self.cap:                  # if at capacity.
+            new = ListNode(key)                     # create new node.
+            prev = new
+            self.cur.next = new                     # update cur ptr to new node.
+            self.cur = self.cur.next                # move cur forward.
+            self.cur.prev = prev
+            self.track.setdefault(key, value)       # place new key in dict.
+
+            remove = self.stack.val                 # grab val to remove.
+            self.track.pop(remove)                  # remove from dict.
+            self.stack = self.stack.next            # move stack ptr forward.
+        else:
+            if self.stack.val == -1:
+                self.stack.val = key
+            else:
+                new = ListNode(key)
+                prev = new
+                self.cur.next = new
+                self.cur = self.cur.next
+                self.cur.prev = prev
+
+            self.track.setdefault(key, value)
+            self.nodes += 1
+    
