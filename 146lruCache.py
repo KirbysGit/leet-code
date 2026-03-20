@@ -177,4 +177,97 @@ class thirdAttempt:
 
             self.track.setdefault(key, value)
             self.nodes += 1
-    
+
+class fourthAttempt:
+
+    # bro i gotta hit a reset on this one its killing me.
+
+    # 03 / 20 / 2026 - 2:38 pm
+
+    # testcases -> 15 / 24 passed.
+
+    # alright so we made progress, a bit backwards and a bit forwards but i'm getting closer.
+
+    # its really handling like the None's that really mess me up.
+
+    # basically i ran into some cases where the stack was being rearranged poorly when we
+    # had a value that already existed in the stack, so like the way i handle moving the
+    # values around was really causing issues. 
+
+    # i resolved some of them, but now im getting an issue with a larger test case, and its
+    # harder to just draw out. i think i need to approach the entire problem again, like
+    # drawing out what the entire cases could be, just so i can avoid what i am doing right
+    # now with all of the symptom handling i've been doing. 
+
+    # here is the current code : 
+
+    def __init__(self, capacity: int):
+        self.track = {}
+        self.stack = ListNode(-1)                    # original ptr.
+        self.cur = self.stack                       # cur is moving ptr.
+        self.nodes = 0
+        self.cap = capacity
+
+    def get(self, key: int) -> int:
+        if key in self.track:                     # if key exists in track dict.
+            val = self.track.get(key)               # get val at key.
+            self.cur.next = ListNode(key)           # move value forward to node we just used.
+            self.cur = self.cur.next                # move cur to that new value.
+            if self.nodes == self.cap:              # if we're at cap, move stack forward.
+                self.stack = self.stack.next
+            return val                              # return val we got.
+        else:
+            return -1
+
+    def put(self, key: int, value: int) -> None:
+        # checking if the key is already in our list, then updating the dict value
+        # and connecting the node to the front. 
+        if key in self.track:
+            self.track[key] = value
+            if self.stack.val != key:
+                front = self.stack
+                while front.val != key:
+                    front = front.next
+                front.prev.next = front.next
+                if front.prev.next == None:
+                    self.cur = front.prev
+                else:
+                    self.cur = front.prev.next
+            else:
+                if self.stack.next:
+                    self.stack = self.stack.next
+
+            new = ListNode(key)
+            prev = self.cur
+            self.cur.next = new
+            self.cur = self.cur.next
+            self.cur.prev = prev
+
+            return
+
+
+        if self.nodes == self.cap:                  # if at capacity.
+            new = ListNode(key)                     # create new node.
+            prev = self.cur
+            self.cur.next = new                     # update cur ptr to new node.
+            self.cur = self.cur.next                # move cur forward.
+            self.cur.prev = prev
+            self.track.setdefault(key, value)       # place new key in dict.
+
+            remove = self.stack.val                 # grab val to remove.
+            self.track.pop(remove)                  # remove from dict.
+            self.stack = self.stack.next            # move stack ptr forward.
+        else:
+            if self.stack.val == -1:
+                self.stack.val = key
+            else:
+                new = ListNode(key)
+                prev = self.cur
+                self.cur.next = new
+                self.cur = self.cur.next
+                self.cur.prev = prev
+
+            print(self.stack.val)
+            print(self.stack.next)
+            self.track.setdefault(key, value)
+            self.nodes += 1
