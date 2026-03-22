@@ -271,3 +271,111 @@ class fourthAttempt:
             print(self.stack.next)
             self.track.setdefault(key, value)
             self.nodes += 1
+
+class fifthAttempt:
+
+    # 03 / 22 / 2026 - 3:49 pm
+
+    # holy fuck.
+
+    # Runtime -> 4780 ms - 5.01%
+    # Memory -> 78.52 MB - 27.53%
+
+    # dude this question was so ass its insane. literally cursing out my computer like 10 minutes ago.
+
+    # just so many dumb things to handle while moving the nodes around. like in reality the problem isn't
+    # hard to conceptualize, but just using the data structures i did, to handle the problem was so fucking ass.
+
+    # took me so long, i mean i was working on this problem before my michigan trip so its been like 2 weeks
+    # with this problem mentally in my background.
+
+    # look at this stat bro from leetcode : Time taken: 14d 14hrs 48m 51s
+
+    # insane.
+
+    # anyways, i don't really know how to explain what i did, i just got the code to work to how i was 
+    # thinking about it.
+
+    def __init__(self, capacity: int):
+        self.track = {}                 # dict for tracking vals in LRU.
+        self.LRU = ListNode(-1)         # node @ this point is the LRU.
+        self.cur = self.LRU             # node @ this point is the MRU.
+        self.nodes = 0                  # number of nodes we have in LRU.
+        self.cap = capacity             # capacity of nodes for this LRU.
+
+    def get(self, key: int) -> int:
+        if key in self.track:
+            val = self.track.get(key)
+
+            front = self.LRU
+            if self.cur.val == key:
+                return val
+            if front.val == key:
+                if self.LRU.next != None:
+                    self.LRU = self.LRU.next
+                else:
+                    return val
+            else:           
+                front = self.LRU
+                while front.val != key:
+                    prev = front
+                    front = front.next
+
+                prev.next = front.next
+
+            new = ListNode(key)             # create new node, and add to front.
+            self.cur.next = new
+            self.cur = self.cur.next
+            front = self.LRU
+            return val
+        else:
+            return -1
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.track:
+            self.track[key] = value
+            front = self.LRU
+            if self.cur.val == key:
+                return
+
+            if front.val == key:
+                if self.LRU.next != None:
+                    self.LRU = self.LRU.next
+                else:
+                    return
+            else:
+
+                while front.val != key:
+                    prev = front
+                    front = front.next
+
+                prev.next = front.next
+
+            new = ListNode(key)             # create new node, and add to front.
+            self.cur.next = new
+            self.cur = self.cur.next
+        else:
+            if self.nodes == self.cap:
+                remove = self.LRU.val           # grab key to remove from dict based on LRU.
+                self.track.pop(remove)          # remove from dict.
+
+                new = ListNode(key)             # create new node, and add to front.
+                self.cur.next = new
+                self.cur = self.cur.next
+
+                self.LRU = self.LRU.next        # get rid of LRU.
+
+                
+                self.track.setdefault(key, value)
+            else:
+                self.track.setdefault(key, value)
+                self.nodes += 1
+
+                if self.cur.val == -1:          # if first node, just update value.
+                    self.cur.val = key
+                else:                           # else, create new node, and add to front.
+                    new = ListNode(key)
+                    self.cur.next = new
+                    self.cur = self.cur.next
+
+        front = self.LRU
