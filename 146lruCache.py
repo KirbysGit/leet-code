@@ -379,3 +379,73 @@ class fifthAttempt:
                     self.cur = self.cur.next
 
         front = self.LRU
+
+class fasterWay:
+
+    # 03 / 23 / 2026 - 8:42 pm
+
+    # i left off this problem yesterday with a very slow solution, and reviewing some more proper
+    # solutions, i found some with OrdereredDict to be the fastest, and some with a normal
+    # Doubly Linked List, which is what I originally attempted, but I don't really use in my approach.
+
+    # Runtime -> 124 ms - 55.87%
+    # Memory -> 78.89 MB - 11.10%
+
+    # so here is a faster Doubly Linked List that I am taking notes on : 
+
+    class Node: 
+
+        def __init__(self, key, value):
+            self.key = key
+            self.value = value
+            self.prev = None
+            self.next = None
+
+    class LRUCache:
+
+        def __init__(self, capacity):
+            self.capacity = capacity            # capacity of the cache.
+            self.cache = {}                     # dict for tracking bodes in cache.
+            self.head = Node(0, 0)              # dummy head node.
+            self.tail = Node(0, 0)              # dummy tail node.
+            self.head.next = self.tail          # connect head to tail forwards.
+            self.tail.prev = self.head          # connect tail to head backwards.
+
+        def remove(self, node):
+            prev = node.prev                    # grabs prev node to cur node.
+            nxt = node.next                     # grabs next node to cur node.
+            prev.next = nxt                     # connects prev to next forwards.
+            nxt.prev = prev                     # connects next to prev backwards.
+
+            # node is now removed.
+
+        def add(self, node):
+            node.prev = self.head               # connects new node to dummy head backwards.
+            node.next = self.head.next          # connects new node to last MRU node forwards.
+            self.head.next.prev = node          # connects current MRU node to new node backwards.
+            self.head.next = node               # connects dummy head to new node forwards.
+
+            # node is now MRU.
+
+        def get(self, key): 
+            if key in self.cache:               # if key is in cache.
+                node = self.cache[key]          # grab node from cache.
+                self.remove(node)               # remove node from list.
+                self.add(node)                  # add node to the front of the list.    
+                return node.value               # return the value of the node.
+            else:
+                return -1                       # if key is not in cache, return -1.
+
+        def put(self, key, value):
+            if key in self.cache:               # if key is in cache.
+                self.remove(self.cache[key])    # remove node from list.
+
+            # either way if node in cache or not, we are adding new node.
+
+            node = Node(key, value)             # create new node.
+            self.add(node)                      # add node to front, now becomes MRU.
+            self.cache[key] = node              # add node to cache.
+            if len(self.cache) > self.capacity: # if cache is over capacity.
+                last = self.tail.prev           # grab last node.
+                self.remove(last)               # remove node from list.
+                del self.cache[last.key]        # remove node from cache.
