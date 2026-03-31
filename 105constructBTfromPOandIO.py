@@ -211,3 +211,58 @@ class hintAndIGotIt:
         return root
 
 
+class fasterSolution:
+
+    # 03 / 31 / 2026 - 7:07 pm
+
+    # found in the solutions tab, i'll explain what it odes and why its better than mine.
+
+    # it starts out with a mapping, where in my approach trying to iterate the split array everytime
+    # to figure out where to split based on the new root. it uses a hashmap to get the idx
+    # immediately so it only has to look through it once, and then we know how to split
+    # the arrays better.
+
+    # then it also turns the preorder into a deque, which is smart to prevent having
+    # to keep track of an index as you iterate through the roots, you can just always
+    # take the first one.
+
+    # then it uses a recursive function to basically, create subtrees by taking the
+    # current root, grabbing the mid value to find where we need to iterate up to,
+    # and iterate past (for the sake of left and right subtrees) then sets the
+    # current roots left child to the values up to the mid val, and the right child
+    # to the values past the mid val.
+
+    # its using an indexing form to narrow down the tree as we use the inorder and
+    # preorder relationship to create the ordering of the tree.
+
+    # the recursive function returns the root, so at the end, we can just 
+    # return the initial function call to get the root node of the tree.
+
+    # i wouldn't say i was super close to this, but i mean my main swap up 
+    # was really just how i split the array every call rather than using a 
+    # hash map to reference the index values easier. 
+
+    # heres the code :
+
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+
+        mapping = {}
+
+        for idx in range(len(inorder)):
+            mapping[inorder[i]] = i
+
+        preorder = collections.deque(preorder)
+
+        def build(start, end):
+            if start > end:
+                return None
+
+            root = TreeNode(preorder.popleft())
+            mid = mapping[root.val]
+
+            root.left = build(start, mid - 1)
+            root.right = build(mid + 1, end)
+
+            return root
+
+        return build(0, len(preorder) - 1)
