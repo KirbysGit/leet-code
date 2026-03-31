@@ -96,7 +96,7 @@ class startingTheCode:
                 self.addNode(direction, head, inorder[idx])
                 #direction = !(direction)
             elif inorder[idx] in added:
-                print("not even sure if this possible")
+                # add node with opposite direction of current
             else:
                 if inorder[idx] == preorder[idx]:
                     new = TreeNode(preorder[idx])
@@ -120,4 +120,94 @@ class startingTheCode:
         # when should we do each one ? 
 
         # i'll be back bro.
+
+class hintAndIGotIt:
+
+    # 03 / 30 / 2026 - 10:56 pm
+
+    # Runtime -> 134 ms - 8.67%
+    # Memory -> 55.84 MB - 41.51%
+
+    # alright so its really slow but it works. which is important to me. 
+
+    # basically, i was working through all of the patterns with me trying to understand how
+    # we can iterate through both the arrays at the same time and connect how they
+    # are added on top of each other, like how can we use the direction variable and alter
+    # it properly to handle adding the nodes in the proper order.
+
+    # but i spent like probably 6 hours or so over the last days trying to understand it
+    # but yea nothing made sense, there was always just a break case later in the test case.
+
+    # i caved man. i used chatgpt. NO!!!!! nah but i mean, i just asked for a hint and this is
+    # what it gave me or at least the part i let myself read : 
+
+    # preorder tells you who the root is next, inorder tells you where that root splits left subtree from right subtree.
+
+    # right after it said my approach was "yea, you're pretty far off with the directions idea"
+
+    # gotta love the brutal honestly ig. but as soon as i saw that, it STILL didn't click.
+
+    # i drew out some examples on the whiteboard, and the pattern i noticed made sense but i 
+    # realized i needed to recurse which isn't my favorite.
+
+    # but basically the idea is what chatgpt gave me, with the, use the next preorder value as your
+    # root, and pass the inorder splits to the recursed case with the next root.
+
+    # i think the reason mine is so slow is because of the way i iterate through, there is definitely a 
+    # more efficient way to do it but i'll deal with that tmrw because i've been working on this for like 2
+    # hours straight now no breaks.
+
+    # here is my code :
+
+    # idea is to recursively split and pass new root downwards until the values are None, then 
+    # make way back up. to better handle the proper root without like a global val i used 
+    # a deque i pass through. 
+
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+
+        def split_arr(root, in_arr):
+            idx = 0
+            while in_arr[idx] != root:
+                idx += 1
+
+            if idx == 0 and len(in_arr) > 0:
+                return None, in_arr[1:]
+            elif idx == 0:
+                return None, None
+
+            left = in_arr[:idx]
+            right = in_arr[idx + 1:]
+
+            return left, right
+
+        
+        def recurse(preorder, side):
+            if not preorder:
+                return None
+
+            root = TreeNode()
+            root.val = preorder.popleft()
+
+            left, right = split_arr(root.val, side)
+
+            if not left and not right:
+                return root
+            if left:
+                root.left = recurse(preorder, left)
+            if right:
+                root.right = recurse(preorder, right)
+
+            return root
+
+        pre = 0
+        pre_dq = deque(preorder)
+        root = TreeNode(pre_dq.popleft())
+
+        left, right = split_arr(root.val, inorder)
+        
+        root.left = recurse(pre_dq, left) if left else None
+        root.right = recurse(pre_dq, right) if right else None
+
+        return root
+
 
