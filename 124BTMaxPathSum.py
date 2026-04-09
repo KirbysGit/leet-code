@@ -145,3 +145,83 @@ class almostGotIt:
 
 
         return max(root.val, max(best, max(left, right)))
+
+
+class symptomHandling:
+
+    # 04 / 09 / 2026 - 2:30 pm
+
+    # test cases -> 79 / 96
+
+    # i'm really just symptom handling right now.
+
+    # i'm gonna head to the gym but leave this open so i can think about it more when i get back.
+    
+    # its really just gotta be a way i organize the conditionals so we add only when the 
+    # value is higher than the previous value.
+
+    # here's current code, (its getting long bro):
+
+    # Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        
+        if root == None or (root.left == None and root.right == None):
+            return root.val
+
+        left_dp = []
+        right_dp = []
+        left = 0
+        right = 0
+
+        def recurse(root, dp):
+
+            if root is None:
+                return 0
+
+            left = recurse(root.left, dp)
+
+            if not dp:
+                dp.append(root.val)
+            else:
+                cur = root.val + dp[-1]
+                if root.val > cur:
+                    dp.append(root.val)
+                else:
+                    dp.append(cur)
+            
+            right = recurse(root.right, dp)
+
+            best = max(left, right)
+
+            up = root.val + best
+
+            return max(root.val, up)
+
+        if root.left:
+            left = recurse(root.left, left_dp)
+
+        if root.right:
+            right = recurse(root.right, right_dp)
+
+        solutions = []
+        
+        solutions.append(root.val + left + right)
+        solutions.append(root.val + left)
+        solutions.append(root.val + right)
+        solutions.append(root.val) 
+        if left_dp:
+            print(left_dp)
+            solutions.append(max(left_dp))
+        if right_dp:
+            print(right_dp)
+            solutions.append(max(right_dp))
+        
+        print(solutions)
+
+        return max(solutions)
