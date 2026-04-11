@@ -162,13 +162,6 @@ class symptomHandling:
 
     # here's current code, (its getting long bro):
 
-    # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-class Solution:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         
         if root == None or (root.left == None and root.right == None):
@@ -225,3 +218,81 @@ class Solution:
         print(solutions)
 
         return max(solutions)
+
+class idekSlowASFTho:
+
+    # 04 / 11 / 2026 - 12:10 am
+
+    # Runtime -> 22 ms - 6.08%
+    # Memory -> 24.06 MB - 19.29%
+
+    # alright bro this shit took me a minute, i've been working on it probably since like 10 ish?
+
+    # but i was pacing around the kitchen trying to understand wtf this was asking for, so 
+
+    # like dude, theres so many cases, like you have to handle the sub-paths, and the potential single node
+    # paths, and then connecting over.
+    
+    # my main idea was trying to like lets track the current path as we go through, add them at the end of a path
+    # so when we reach a leaf node, and then add that path to the dp if its greater than the current last max value.
+
+    # but it feels pretty slow, i actualy realized i had a print statement in the middel of the code and i realized
+    # i can just do if statements to add to the dp instead of a max() statement at the end.
+
+    # so i re-did runtime and now its : 
+
+    # Runtime -> 9 ms - 49.77%
+
+    # so its still in the slower half. 
+
+    # i'll go through faster shit tmrw, but for now here's the code :
+
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        
+        if root is None or (root.left is None and root.right is None):
+            return root.val
+    
+        dp = [root.val]
+
+        def recurse(root, dp, path):
+
+            if root.left is None and root.right is None:
+                return root.val
+
+            path = root.val
+
+            right = None
+            left = None
+
+            if root.left:
+                left = recurse(root.left, dp, path)
+                if left > dp[-1]:
+                    dp.append(left)
+
+                if root.val + left > root.val:
+                    path += left
+
+            if root.right:
+                right = recurse(root.right, dp, path)
+                if right > dp[-1]:
+                    dp.append(right)
+
+                if root.val + right > root.val:
+                    path += right
+
+            if path > dp[-1]:
+                dp.append(path)
+
+            if right != None and left != None:
+                sub = max(right, left)
+            elif right != None:
+                sub = right
+            elif left != None:
+                sub = left
+
+            return max(root.val, root.val + sub)
+
+        recurse(root, dp, 0)
+
+        return dp[-1]
+            
