@@ -241,9 +241,8 @@ class idekSlowASFTho:
 
     # so i re-did runtime and now its : 
 
-    # Runtime -> 9 ms - 49.77%
+    # Runtime -> 8 ms - 60.85%
 
-    # so its still in the slower half. 
 
     # i'll go through faster shit tmrw, but for now here's the code :
 
@@ -296,3 +295,57 @@ class idekSlowASFTho:
 
         return dp[-1]
             
+
+class fasterSolution:
+
+    # 04 / 11 / 2026 - 4:29 pm
+
+    # Runtime -> 5 ms - 84.70%
+    # Memory -> 23.85 MB - 70.90%
+
+    # i got this one off the solutions tab and decided to review it with chatgpt.
+
+    # this honestly was the idea i was going for, but i couldn't figure out how to deal with handling two
+    # different values at once, like returning the best path up, and the best value up, like those are two
+    # different things. 
+
+    # when reviewing with mrgpt it brought up how the problem has two separate quantities ;
+    # - what can i return to my parent?
+    # - what is the best path seen anywhere so far? 
+
+    # this is what i was asking, but i was struggling to find a way to combine it per run.
+
+    # the clean solution keeps track of the best value with the nonlocal variable with res. 
+
+    # then it recurses left and right, ignoring negative branches, which is another idea i was trying
+    # to implement, as its better to stop than include a harmful path.
+
+    # update our dp max through a max statment between current best and current path.
+
+    # and we only want to return one side up, so at each like path, we're checking the path
+    # max then moving up and returning just one side of the path of the parent so it can
+    # recompute based on its two children.
+
+    # hate to sound like an idiot but i had the idea, implementation wasn't there tho. 
+
+    # here's the code : 
+
+    res = root.val
+
+    def dfs(root):
+        if not root:
+            return 0
+
+        nonlocal res
+
+        leftMax = dfs(root.left)
+        rightMax = dfs(root.right)
+        leftMax = max(leftMax, 0)
+        rightMax = max(rightMax, 0)
+
+        res = max(res, root.val + leftMax + rightMax)
+
+        return root.val + max(leftMax, rightMax)
+
+    dfs(root)
+    return res
