@@ -51,3 +51,33 @@ class firstAttempt:
 
     def hasNext(self) -> bool:
         return bool(self.stack)
+
+class wayFaster:
+
+    # 04 / 12 / 2026 - 9:46 pm
+
+    # Runtime -> 3 ms - 89.04%
+    # Memory -> 25.46 MB - 93.49%
+
+    # alright this makes sense, but in general the idea is the same as mine.
+
+    # the only thing that this solution does differently is that with the inorder, instead of 
+    # doing what i was doing where we return when we hit a value of None, they just check before
+    # if the value is None and then go from there, so like instead of hitting the None leaf of the
+    # leaf node they check if the value is None before they go to it, and by doing that it will
+    # save basically O(2 * L) where L is the number of leaf nodes. 
+
+    # so the solution is basically the same, but it just checks in a smarter way.
+
+    # im just gonna include the diff inorder function as everything else was the same :
+
+    def inorder(root):
+        if root.right:
+            inorder(root.right)
+
+        self.stack.append(root.val)
+
+        if root.left:
+            inorder(root.left)
+
+        return
