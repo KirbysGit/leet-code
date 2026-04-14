@@ -32,3 +32,44 @@ class tryingToUnderstand:
         while right.right:
             right_depth += 1
             right = right.right
+
+class oNSolution:
+    
+    # 04 / 14 / 2026 - 2:26 pm
+
+    # Runtime -> 3 ms - 45.63%
+    # Memory -> 23.77 MB - 58.87%
+    
+    # looking at the discussion most of the solutions were just supposed to be O(n).
+
+    # the extra ask was making it faster than that, so i just did O(n) here and going to
+    # come back to see if i can get faster than O(n) later.
+
+    # i mean i get how to do it conceptually, its just like how do you binary search
+    # without approach O(n) anyways?
+
+    # here's my O(n) code : 
+
+    def countNodes(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+
+        def dfs(root):
+            nonlocal total
+            total += 1
+            if not root.left and not root.right:
+                return
+
+            if root.left:
+                dfs(root.left)
+            if root.right:
+                dfs(root.right)
+
+            return
+
+
+        total = 0
+
+        dfs(root)
+
+        return total
