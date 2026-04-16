@@ -37,7 +37,7 @@ class oNSolution:
     
     # 04 / 14 / 2026 - 2:26 pm
 
-    # Runtime -> 3 ms - 45.63%
+    # Runtime -> 0 ms - 100.00%
     # Memory -> 23.77 MB - 58.87%
     
     # looking at the discussion most of the solutions were just supposed to be O(n).
@@ -73,3 +73,59 @@ class oNSolution:
         dfs(root)
 
         return total
+
+class fasterSolution:
+
+    # 04 / 15 / 2026 - 10:44 pm
+
+    # Runtime -> 0 ms - 100.00%
+    # Memory -> 23.74 MB - 57.87%
+
+    # alright i don't think i would've gotten this.
+
+    # i mean it makes sense in hindsight but really its just like a weird recursion.
+
+    # like the heights make sense, but the idea of the recursion still going through each
+    # node in a non-even tree is where i was kind of thrown off, like i felt like that 
+    # was too slow.
+
+    # i was just overthinking it seeing it had to be faster than O(n), so i wanted to find
+    # an algorithm that was like O(log n) or something.
+
+    # the idea behind the code is to recursively check the left and right heights, 
+    # then compare, and if they're not the same, then we know the tree is not complete, so we
+    # recurse the function to check the heights of the left and right subtree, and eventually
+    # it will find "perfect" subtrees and return their number without parsing through each node
+    # but the tree that isn't perfect will have to keep recursing down until it finds 
+    # the tree that is imperfect.
+
+    # looks pretty simple after typing it out but its pretty hard to think about recursing
+    # like that. but it makes sense.
+
+    # here's the code :
+
+    def countNodes(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+
+        left_height = get_left_height(root.left)
+        right_height = get_right_height(root.right)
+
+        if left_height == right_height:
+            return (1 << left_height) - 1
+
+        return 1 + self.countNodes(root.left) + self.countNodes(root.right)
+
+    def get_left_height(self, node):
+        height = 0
+        while node:
+            height += 1
+            node = node.left
+        return height
+    
+    def get_right_height(self, node):
+        height = 0
+        while node:
+            height += 1
+            node = node.right
+        return height
