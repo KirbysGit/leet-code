@@ -85,3 +85,40 @@ class fuckYou:
         r = self.lowestCommonAncestor(root.right, p, q)
 
         return root if l and r else (l or r)
+
+class backFor150Interview:
+
+    # 04 / 16 / 2026 - 3:34 pm
+
+    # Runtime -> 51 ms - 92.91%
+    # Memory -> 24.39 MB - 81.32%
+
+    # i was pretty unsure of what to do, i was thinking like how to properly track the ancestors.
+    # but then as i was walking my way through some of the trees recursively, i realized that
+    # if you don't get a value on the left and right, then you just take the first value you
+    # see on whichever side comes back, becasue it is the latest ancestor we will have seen,
+    # there's no reason to verify the child is below it as we already know that if we couldn't
+    # find it on the other side we were looking.
+
+    # this allows us to to just retrun the root if we find p or q, and if we find both
+    # we can return the parent of what was returned from left and right which would be the root.
+
+    # here's the code (basically the same as the fuckYou class just a bit longer) : 
+
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if not root:
+            return None
+
+        if root == p or root == q:
+            return root
+
+        L = self.lowestCommonAncestor(root.left, p, q)
+        R = self.lowestCommonAncestor(root.right, p, q)        
+
+        if L and R:
+            return root
+        elif L:
+            return L
+        elif R:
+            return R
+    
